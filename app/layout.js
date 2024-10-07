@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import "./globals.css";
 import {Inter} from 'next/font/google';
 import { ClerkProvider } from "@clerk/nextjs";
+import CreateEventDrawer from "@/components/create-event";
 
 export const metadata = {
   title: "Schedulerr",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
             Made with ❤️ by Vibhor Agarwal
           </div>
         </footer>
+        <CreateEventDrawer/>
       </body>
     </html>
     </ClerkProvider>
