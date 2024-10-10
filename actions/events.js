@@ -44,15 +44,15 @@ export async function getUserEvents(){
         throw new Error("User not found");
     }
 
-    const event = await db.event.findMany({
+    const events = await db.event.findMany({
         where: {userId: user.id},
         orderBy:{createdAt: "desc"},
         include:{
             _count:{
-                select: {booking: true}
+                select: {bookings: true}
             }
         }
     });
-    return {event, username:user.username};
-
+    return {events, username:user.username};
 }
+
