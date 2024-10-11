@@ -23,3 +23,33 @@ export const eventSchema = z.object({
   duration: z.number().int().positive("Duration must be positive"),
   isPrivate: z.boolean(),
 });
+
+export const daySchema = z
+  .object({
+    isAvailable: z.boolean(),
+    startTime: z.string().optional(),
+    endTime: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      if (data.isAvailable) {
+        return data.startTime < data.endTime;
+      }
+      return true;
+    },
+    {
+      message: "Start time must be before the end time ",
+      path: ["endTime"],
+    }
+  );
+
+export const availabilitySchema = z.object({
+  monday: daySchema,
+  tuesday: daySchema,
+  wednesday: daySchema,
+  thursday: daySchema,
+  friday: daySchema,
+  saturday: daySchema,
+  sunday: daySchema,
+  timeGap: z.number().min(0, "TimeGap must be greater than 0").int(),
+});
